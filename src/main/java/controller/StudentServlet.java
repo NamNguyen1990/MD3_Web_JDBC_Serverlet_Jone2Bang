@@ -31,9 +31,22 @@ public class StudentServlet extends HttpServlet {
             case "view":
                 showView(request, response);
                 break;
+            case "delete":
+                showDelete(request, response);
+                break;
             default:
                 showList(request, response);
         }
+    }
+
+    private void showDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Class> classes = classService.findAll();
+        request.setAttribute("classes", classes);
+        int id = Integer.parseInt(request.getParameter("id"));
+        Student student = studentService.findById(id);
+        request.setAttribute("delete", student);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("student/delete.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void showView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,9 +87,22 @@ public class StudentServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "delete":
+                try {
+                    deleteForm(request, response);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
                 showList(request, response);
         }
+    }
+
+    private void deleteForm(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        studentService.delete(id);
+        response.sendRedirect("/home");
     }
 
     private void createForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {

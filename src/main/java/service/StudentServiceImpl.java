@@ -92,7 +92,13 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public boolean delete(int id) throws SQLException {
-        return false;
+        boolean rowDeleted;
+        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement("delete from student where id=?");) {
+            statement.setInt(1, id);
+            System.out.println(statement);
+            rowDeleted = statement.executeUpdate() > 0;
+        }
+        return rowDeleted;
     }
 
     @Override
@@ -101,12 +107,57 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public List<Student> findByName(String name) {
-        return null;
+    public List<Student> findByName(String key) {
+        List<Student> students = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from student where name like ?");) {
+            preparedStatement.setString(1, "%"+key+"%");
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int age = rs.getInt("age");
+                String name = rs.getString("name");
+                int classId = rs.getInt("cID");
+                Class clazz = classService.findById(classId);
+                students.add(new Student(id,name,age,clazz));
+
+            }
+        } catch (SQLException e) {
+        }
+
+        return students;
     }
 
     @Override
     public List<Student> findAllOderByAge() {
         return null;
+    }
+
+    @Override
+    public List<Student> findAllByClass(int cID) {
+        List<Student> students = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from student where cID = ?");) {
+            preparedStatement.setInt(1, cID);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int age = rs.getInt("age");
+                String name = rs.getString("name");
+                int classId = rs.getInt("cID");
+                Class clazz = classService.findById(classId);
+                students.add(new Student(id,name,age,clazz));
+
+            }
+        } catch (SQLException e) {
+        }
+
+        return students;
     }
 }

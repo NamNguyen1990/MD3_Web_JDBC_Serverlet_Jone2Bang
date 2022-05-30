@@ -51,21 +51,27 @@
             </c:forEach>
         </div>
         <div class="col-9">
-            <h3 style="text-align: center">Xem chi tiết</h3>
+            <h3 style="text-align: center">Xóa hồ sơ sinh viên</h3>
             <table class="table table-dark mt-3">
                 <thead>
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Age</th>
                     <th scope="col">Class</th>
+                    <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>${student.name}</th>
-                        <td>${student.age}</td>
-                        <td>${student.clazz.name}</td>
-                    </tr>
+                <tr>
+                    <th>${delete.name}</th>
+                    <td>${delete.age}</td>
+                    <td>${delete.clazz.name}</td>
+                    <td>
+                        <form method="post">
+                            <button class="btn btn-danger">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
