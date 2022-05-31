@@ -34,9 +34,22 @@ public class StudentServlet extends HttpServlet {
             case "delete":
                 showDelete(request, response);
                 break;
+            case "edit":
+                showEdit(request, response);
+                break;
             default:
                 showList(request, response);
         }
+    }
+
+    private void showEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Class> classes = classService.findAll();
+        request.setAttribute("classes", classes);
+        int id = Integer.parseInt(request.getParameter("id"));
+        Student student = studentService.findById(id);
+        request.setAttribute("student", student);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("student/edit.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void showDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,9 +107,26 @@ public class StudentServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
+            case "edit":
+                try {
+                    editForm(request, response);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
                 showList(request, response);
         }
+    }
+//
+    private void editForm(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        String name = request.getParameter("name");
+        int age = Integer.parseInt(request.getParameter("age"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        int cID = Integer.parseInt(request.getParameter("cID"));
+        Class clazz = classService.findById(cID);
+        studentService.update(new Student(id,name,age,clazz));
+        response.sendRedirect("/home");
     }
 
     private void deleteForm(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
