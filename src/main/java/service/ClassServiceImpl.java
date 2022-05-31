@@ -45,7 +45,16 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public void add(Class aClass) throws SQLException {
+        try (Connection connection = getConnection();
 
+             PreparedStatement preparedStatement = connection.prepareStatement("insert into class (name) value (?)");) {
+            preparedStatement.setString(1, aClass.getName());
+            preparedStatement.executeUpdate();
+
+//            System.out.println(preparedStatement);
+
+        } catch (SQLException e) {
+        }
     }
 
     @Override

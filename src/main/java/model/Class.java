@@ -12,6 +12,9 @@ public class Class {
         this.name = name;
     }
 
+    public Class(String name) {
+    }
+
     public int getId() {
         return id;
     }

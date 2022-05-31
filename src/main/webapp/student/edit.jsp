@@ -53,33 +53,25 @@
         <div class="col-9">
             <h3 style="text-align: center">Sửa thông tin sinh viên</h3>
             <table class="table table-dark mt-3">
-                <thead>
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Class</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-
-
-
 <%--                    <th>${student.name}</th>--%>
 <%--                    <td>${student.age}</td>--%>
 <%--                    <td>${student.clazz.name}</td>--%>
                     <td>
                         <form method="post">
+                            <h5> Tên </h5>
                             <input type="text" name="name" value="${student.name}">
+                            <h5> Tuổi </h5>
                             <input type="number" name="age" value="${student.age}">
                             <%--                    <input --%>
                             <%--                            type="text" name="clazz" value="${student.clazz.name}">--%>
+                            <h5> Lớp </h5>
                             <select class="form-control" name="cID">
                                 <c:forEach items='${classes}' var="cl">
                                     <option value="${cl.id}">${cl.name}</option>
                                 </c:forEach>
                             </select>
-                            <button class="btn btn-danger"> Update</button>
+                            <button class="btn btn-danger mt-2"> Update</button>
                         </form>
                     </td>
                 </tr>

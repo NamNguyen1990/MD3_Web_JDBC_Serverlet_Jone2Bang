@@ -1,3 +1,28 @@
+<%--&lt;%&ndash;--%>
+<%--  Created by IntelliJ IDEA.--%>
+<%--  User: dell--%>
+<%--  Date: 5/31/2022--%>
+<%--  Time: 1:57 PM--%>
+<%--  To change this template use File | Settings | File Templates.--%>
+<%--&ndash;%&gt;--%>
+<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
+<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
+<%--<html>--%>
+<%--<head>--%>
+<%--    <title>Title</title>--%>
+<%--</head>--%>
+<%--<body>--%>
+<%--<form method="post">--%>
+<%--    <input type="text" name="name">--%>
+<%--    <button>Tạo mới Class</button>--%>
+<%--</form>--%>
+<%--</body>--%>
+<%--</html>--%>
+
+
+
+
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -18,12 +43,12 @@
     <div class="row">
         <div class="col-12">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<%--                <a class="navbar-brand" href="#">Navbar</a>--%>
-<%--                <button class="navbar-toggler" type="button" data-toggle="collapse"--%>
-<%--                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"--%>
-<%--                        aria-expanded="false" aria-label="Toggle navigation">--%>
-<%--                    <span class="navbar-toggler-icon"></span>--%>
-<%--                </button>--%>
+                <%--                <a class="navbar-brand" href="#">Navbar</a>--%>
+                <%--                <button class="navbar-toggler" type="button" data-toggle="collapse"--%>
+                <%--                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"--%>
+                <%--                        aria-expanded="false" aria-label="Toggle navigation">--%>
+                <%--                    <span class="navbar-toggler-icon"></span>--%>
+                <%--                </button>--%>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
@@ -31,10 +56,7 @@
                             <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/students?act=create">Thêm Student</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/classes?act=create">Thêm Class</a>
+                            <a class="nav-link" href="/students?act=create">Add Student</a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" action="/home">
@@ -54,31 +76,12 @@
             </c:forEach>
         </div>
         <div class="col-9">
-            <h3 style="text-align: center">Danh sách học sinh</h3>
-            <table class="table table-dark mt-3">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items='${students}' var="st">
-                    <tr>
-                        <th>${st.name}</th>
-                        <td>${st.age}</td>
-                        <td>${st.clazz.name}</td>
-                        <td>
-                            <a class="btn btn-primary" href="/students?act=view&id=${st.id}"> Xem </a>
-                            <a class="btn btn-secondary" href="/students?act=edit&id=${st.id}"> Sửa </a>
-                            <a class="btn btn-danger" href="/students?act=delete&id=${st.id}"> Xóa</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <h3 style="text-align: center">Thêm lớp mới</h3>
+            <form method="post">
+                <h5> Tên lớp </h5>
+                <input class="form-control" type="text" name="name">
+                <button class="btn btn-primary mt-2">Tạo mới Class</button>
+            </form>
         </div>
     </div>
 </div>
